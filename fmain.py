@@ -1,11 +1,12 @@
 from discord.ext import commands
-from flegelapi import pg, key
+from flegelapi.pg import default, server
+from flegelapi.key import get_id
 import info
 import asyncpg
 import asyncio
 import traceback
 
-ID=key.get_id()
+ID=get_id()
 
 cogs = [
     'admin',
@@ -28,8 +29,8 @@ class Flegel_Main(commands.Bot):
          self.pg_table = []
          
      async def guild_prefix(self, bot, mes):
-         if not (prefixess := await pg.server.fetch('prefix', mes.guild.id)):
-             await pg.default.insert('prefix', 'server_id', mes.guild.id, 'new_prefix', [])
+         if not (prefixess := await server.fetch('prefix', mes.guild.id)):
+             await default.insert('prefix', 'server_id', mes.guild.id, 'new_prefix', [])
              
              await self.pool.execute('UPDATE prefix SET new_prefix = array_append(new_prefix, $1) WHERE server_id=$2', 'f/', str(mes.guild.id))
          if prefixess is None:
@@ -56,7 +57,7 @@ class Flegel_Main(commands.Bot):
              await pg.default.create(self.pool, table)
          
      async def create_db_pool(self):
-        self.pool = await pg.default.connect(info.user, info.pw, info.db)
+        self.pool = await default.connect(info.user, info.pw, info.db)
       
      def add_table(self, table):
         self.pg_table.append(table)

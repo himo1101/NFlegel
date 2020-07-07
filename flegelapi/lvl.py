@@ -1,4 +1,4 @@
-from flegelapi import pg
+from flegelapi.pg import default, server
 import discord
 
 
@@ -9,7 +9,7 @@ class User_lvl:
         
     async def check_save_date(self, mes: discord.Message):
         
-        return await pg.default.fetch(self.pool, 'lvl', 'server_id', mes.guild.id, 'user_id', mes.author.id)
+        return await default.fetch(self.pool, 'lvl', 'server_id', mes.guild.id, 'user_id', mes.author.id)
         
         
     async def date_insert(self, mes:discord.Message=None, default_xp:int=0, default_lvl:int=0):
@@ -21,7 +21,7 @@ class User_lvl:
     async def up_xp(self, mes:discord.Message=None, xp:int=1):
         server_date=await self.date_insert(mes)
         
-        return await pg.default.update(self.pool, 'lvl', 'xp', server_date['xp']+ xp, 'guild_id', mes.guild.id, 'user_id', mes.author.id)
+        return await default.update(self.pool, 'lvl', 'xp', server_date['xp']+ xp, 'guild_id', mes.guild.id, 'user_id', mes.author.id)
         
         
         
@@ -33,7 +33,7 @@ class User_lvl:
         cur_lvl=user['lvl']
         
         if cur_xp >= round((20 * (cur_lvl ** 9)) / 2):
-            await pg.default.update(self.pool, 'lvl', 'lvl', server_date['lvl']+1, 'guild_id', mes.guild.id, 'user_id', mes.author.id)
+            await default.update(self.pool, 'lvl', 'lvl', server_date['lvl']+1, 'guild_id', mes.guild.id, 'user_id', mes.author.id)
             user_= self.check_save_date(mes)
             return await embed.default(mes.channel, f'{mes.author.mention}のレベル', 'レベル: {user_["lvl"]} \n 経験値: {user_["xp"]}')
             

@@ -1,8 +1,8 @@
 from discord.ext import commands
-from flegelapi import key
+from flegelapi.key import get_id()
 import traceback
 
-ID= key.get_id()
+ID= get_id()
 class Error(commands.Cog):
     def __init__(self, bot):
         self.bot=bot

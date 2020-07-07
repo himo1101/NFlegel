@@ -1,6 +1,8 @@
 from discord.ext import commands
 import asyncpg
 import traceback
+from flegelapi.pg import default, server
+
 prefix_table = '''
         prefix(
             id serial PRIMARY KEY,
@@ -16,8 +18,8 @@ class Prefix(commands.Cog):
         
     @commands.command()
     async def add_prefix(self, ctx, new_prefix: str):
-        if not (prefixes := await pg.server.fetch('prefix', 'server_id', ctx.guild.id)):
-            await pg.default.insert('prefix', 'server_id', mes.guild.id, 'new_prefix', [])
+        if not (prefixes := await server.fetch('prefix', 'server_id', ctx.guild.id)):
+            await default.insert('prefix', 'server_id', mes.guild.id, 'new_prefix', [])
             return await ctx.send(f'{new_prefix}を新プレフィックスとして登録しました')
             
         if new_prefix not in prefixes[0]['new_prefix']:
@@ -29,7 +31,7 @@ class Prefix(commands.Cog):
         
     @commands.command()
     async def remove_prefix(self, ctx, del_prefix:str):
-        if not (prefixes := await pg.server.fetch('prefix', 'server_id', ctx.guild.id)):
+        if not (prefixes := await server.fetch('prefix', 'server_id', ctx.guild.id)):
             return await ctx.send('このサーバーでカスタムプレフィックスを設定したデータがありません')
             
         if del_prefix in prefixes[0]['new_prefix']:
@@ -39,7 +41,7 @@ class Prefix(commands.Cog):
         
     @commands.command()
     async def show_prefix(self, ctx):
-        if (prefixes := await pg.server.fetch('prefix', 'server_id', ctx.guild.id)):
+        if (prefixes := await server.fetch('prefix', 'server_id', ctx.guild.id)):
             await ctx.send(prefixes[0]['new_prefix'])
 def setup(bot):
     bot.add_cog(Prefix(bot))

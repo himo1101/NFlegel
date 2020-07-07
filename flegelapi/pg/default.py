@@ -31,13 +31,13 @@ async def insert(pool, table:str, clumn1: str, value1: str, clumn2: str=None,val
     if (clumn2 and clumn3) is None:
             upcontent = await pool.execute('INSERT INTO {table} ({column1}) VALUES ($1)', value1)
             
-        elif clumn2 is not None:
-            upcontent = await pool.execute('INSERT INTO {table} ({column1}, {clumn2}) VALUES ($1, $2)', value1, value2)
+    elif clumn2 is not None:
+        upcontent = await pool.execute('INSERT INTO {table} ({column1}, {clumn2}) VALUES ($1, $2)', value1, value2)
             
-        elif clumn3 is not None:
-            upcontent = await pool.execute('INSERT INTO {table} ({column1}, {clumn2}, {clumn3})VALUES ($1, $2, $3)', value1, value2, value3)
+    elif clumn3 is not None:
+        upcontent = await pool.execute('INSERT INTO {table} ({column1}, {clumn2}, {clumn3})VALUES ($1, $2, $3)', value1, value2, value3)
 
-        return upcontent
+    return upcontent
 
 
 async def update(pool, content: str, clumn1: str, value1: str, clumn2: str=None,value2:str=None, clumn3:str=None, value3:str=None):

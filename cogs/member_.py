@@ -1,5 +1,5 @@
 from discord.ext import commands
-from flegelapi import pg
+from flegelapi.pg import default, server
 from distutils.util import strtobool
 
 member_table= """ member_(
@@ -23,9 +23,9 @@ class Member_(commands.Cog):
         except ValueError:
             return await ctx.send(f'{enable}は正常な値ではありません')
         
-        before_content=await pg.server.fetch(self.pool, 'member_', ctx.guild)
+        before_content=await server.fetch(self.pool, 'member_', ctx.guild)
         
-        await pg.default.update(self.pool, 'member_', 'on_off', result_enable, 'server_id', ctx.guild.id)
+        await default.update(self.pool, 'member_', 'on_off', result_enable, 'server_id', ctx.guild.id)
         
         await embed.default(ctx, 'enable change', f'{before_content} -> {"有効" if enable else "無効"}化')
         
@@ -34,9 +34,9 @@ class Member_(commands.Cog):
     async def add_mrole(self, ctx, role: discord.Role=None):
         if role is None:
             return await ctx.send('役職が指定されていません')
-        before_content= await pg.server.fetch(self.pool, 'member', ctx.guild)
+        before_content= await server.fetch(self.pool, 'member', ctx.guild)
         
-        await pg.default.update(self.pool, 'member_', 'role_id', role.id, 'server_id', ctx.guild.id)
+        await default.update(self.pool, 'member_', 'role_id', role.id, 'server_id', ctx.guild.id)
         
         await embed.default(ctx, 'role  change', f'{before_content} -> {role.name}')
         
@@ -45,9 +45,9 @@ class Member_(commands.Cog):
         if channel is None:
             return await ctx.send('チャンネルが指定されていません')
             
-        before_content=await pg.server.fetch(self.pool, 'member_', ctx.guild)
+        before_content=await server.fetch(self.pool, 'member_', ctx.guild)
         
-        await pg.default.update(self.pool, 'member_', 'channel_id', channel, 'server_id', ctx.guild.id)
+        await default.update(self.pool, 'member_', 'channel_id', channel, 'server_id', ctx.guild.id)
         
         await embed.default(ctx, 'channel  change', f'{before_content} -> {channel.mention}')
     
@@ -56,9 +56,9 @@ class Member_(commands.Cog):
         if mes is None:
             return await ctx.send('メッセージが指定されていません')
             
-        before_content=await pg.server.fetch(self.pool, 'member_', ctx.guild)
+        before_content=await server.fetch(self.pool, 'member_', ctx.guild)
         
-        await pg.default.update(self.pool, 'member_', 'custom_mes', mes, 'server_id', ctx.guild.id)
+        await default.update(self.pool, 'member_', 'custom_mes', mes, 'server_id', ctx.guild.id)
         
         await embed.default(ctx, 'custom message change', f'{before_content} -> {mes}')
         
@@ -66,7 +66,7 @@ class Member_(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         
-        server_date=await pg.server.fetch(self.pool, 'member_', ctx.guild)
+        server_date=await server.fetch(self.pool, 'member_', ctx.guild)
         
         if server_date['on_off']== False:
             return
