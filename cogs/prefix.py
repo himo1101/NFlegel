@@ -25,9 +25,7 @@ class Prefix(commands.Cog):
             await self.pool.execute('UPDATE prefix SET new_prefix = array_append(new_prefix, $1) WHERE server_id=$2', new_prefix, str(ctx.guild.id))
             return await ctx.send(f'{new_prefix}を新プレフィックスとして登録しました')
             
-    @add_prefix.error
-    async def add_prefixn(self, ctx, error):
-        print(traceback.format_exc())
+    
         
     @commands.command()
     async def remove_prefix(self, ctx, del_prefix:str):

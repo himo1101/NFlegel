@@ -1,14 +1,19 @@
 from discord.ext import commands
-from flegelapi import pg
-from utils import date
+from flegelapi import pg, key
 import info
 import asyncpg
 import asyncio
 import traceback
 
+ID=key.get_id()
 
 cogs = [
     'admin',
+    'dManage',
+    'information',
+    'member_',
+    'mes',
+    'server',
     'prefix',
     'err'
 ]
@@ -34,7 +39,7 @@ class Flegel_Main(commands.Bot):
              
          
      async def on_ready(self):
-        error_channel = self.get_channel(716061813757968404)
+        error_channel = self.get_channel(ID.channel.err)
         for cog in cogs:
             try:
                 self.load_extension(f"cogs.{cog}")

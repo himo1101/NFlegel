@@ -1,5 +1,8 @@
 from discord.ext import commands
+from flegelapi import key
 import traceback
+
+ID= key.get_id()
 class Error(commands.Cog):
     def __init__(self, bot):
         self.bot=bot
@@ -21,7 +24,7 @@ class Error(commands.Cog):
 
     @commands.Cog.listener()
     async def on_error(self, event, *args, **kwargs):
-        err=self.bot.get_channel(695803169678163970)
+        err=self.bot.get_channel(ID.channel.err)
 
         msg= list(traceback.TracebackException.from_exception(error).format())
         for i in range(0, len(msg), 1092):
