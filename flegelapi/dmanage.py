@@ -1,20 +1,20 @@
 import discord
-class Channel:
-    def __init__(self, name:str=None, category:discord.CategoryChannel=None, channel: typing.Union[discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel]=None)
+class Channel_:
+    def __init__(self, name:str=None, category:discord.CategoryChannel=None, channel=None)
         self.name=name
         self.category=category
         self.channel=channel
-    async def text(self):
+    async def text(self, ctx):
         if self.category is None:
-            new_text=await guild.create_text_channel(self.name)
+            new_text=await ctx.guild.create_text_channel(self.name)
         else:
             new_text=await category.create_text_channel(self.name)
         
         return new_text
         
-    async def voice(self)
+    async def voice(self,ctx):
         if self.category is None:
-            new_voice=await guild.create_voie_channel(self.name)
+            new_voice=await ctx.guild.create_voie_channel(self.name)
         else:
             new_voice=await category.create_voice_channel(self.name)
             
@@ -23,7 +23,7 @@ class Channel:
     async def delete(self):
         await self.channel.delete()
         
-class Role:
+class Role_:
     del __init__(self, name:str=None, role:discord.Role=None):
         self.name=name
         self.role=role
@@ -52,11 +52,7 @@ class Role:
         return embed
     
     async def get_id(self, guild=None):
-        if (guild and self.role) is None:
-            return
-            
-        
-        elif guild is None:
+        if guild is None:
             e= discord.Embed(
                 title='役職のID',
                 description=f'{self.role.name}:{self.role.id}'
