@@ -40,7 +40,7 @@ async def insert(pool, table:str, clumn1: str, value1: str, clumn2: str=None,val
     return upcontent
 
 
-async def update(pool, content: str, clumn1: str, value1: str, clumn2: str=None,value2:str=None, clumn3:str=None, value3:str=None):
+async def update(pool, content: str, clumn1: str, value1, clumn2: str=None,value2:str=None, clumn3:str=None, value3:str=None):
     
     if (clumn2 and clumn3) is None:
         await pool.execute('UPDATE {content} SET {clumn}=$1', value1)
