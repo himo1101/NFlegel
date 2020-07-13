@@ -24,7 +24,7 @@ class Channel_:
         await self.channel.delete()
         
 class Role_:
-    del __init__(self, name:str=None, role:discord.Role=None):
+    def __init__(self, name:str=None, role:discord.Role=None):
         self.name=name
         self.role=role
         
@@ -62,7 +62,6 @@ class Role_:
         elif self.role is None:
             e=discord.Embed(
                 title='役職ID',
-                description=[f'{role.mention}:{role.id}' for role in guild.roles]
-                
+                description=[f'{role.mention}:{role.id}' for role in guild.roles])
             return e
             

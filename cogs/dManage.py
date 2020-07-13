@@ -2,6 +2,7 @@ from discord.ext import commands
 from flegelapi import command
 from flegelapi.dmanage import Channel_, Role_
 import discord
+import typing
 class Channel(commands.Cog):
     def __init__(self, bot):
         self.bot=bot

@@ -8,10 +8,10 @@ mes_table = """lvl(
     xp integer,
     lvl integer)"""
 class Mes(c.Cog):
-    def __init__(self, ctx):
+    def __init__(self, bot):
         self.bot=bot
         self.pool=bot.pool
-        self.lvl= User_lvl(self.pool)
+        self.lvl= lvl.User_lvl(self.pool)
     @c.Cog.listener()
     async def on_message(self, mes):
         await self.lvl.up_xp(mes)
