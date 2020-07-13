@@ -1,6 +1,6 @@
 import discord
 class Channel_:
-    def __init__(self, name:str=None, category:discord.CategoryChannel=None, channel=None)
+    def __init__(self, name:str=None, category:discord.CategoryChannel=None, channel=None):
         self.name=name
         self.category=category
         self.channel=channel

@@ -23,8 +23,7 @@ class Channel(commands.Cog):
     @channel.command()
     async def voice(self, ctx, voice:str, category:discord.CategoryChannel=None):
          new_voice= await Channel_(name=voice, category=category).voice(ctx)
-            
-        await ctx.send(new_voice.mention)
+         await ctx.send(new_voice.mention)
         
     @channel.command()
     async def delete(self, ctx, channel: typing.Union[discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel]=None):

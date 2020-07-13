@@ -1,6 +1,12 @@
 from discord.ext import commands as c
 from flegelapi import lvl, embed
 import discord
+
+mes_table = """lvl(
+    server_id character varying NOT NULL,
+    user_id character varying NOT NULL,
+    xp integer,
+    lvl integer)"""
 class Mes(c.Cog):
     def __init__(self, ctx):
         self.bot=bot
@@ -68,3 +74,7 @@ class Mes(c.Cog):
             channel= ctx
             
         await channel.purge(limit = limit)
+        
+def setup(bot):
+    bot.add_cog(Mes(bot))
+    bot.add_table(mes_table)
