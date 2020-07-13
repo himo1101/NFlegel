@@ -11,7 +11,7 @@ async def connect(user:str, pw:str, db:str, min_size: int=1, max_size: int=1):
     return pool
     
 async def create(pool, table):
-    await pool.execute('CREATE TABLE IF NOT  EXISTS {table}')
+    await pool.execute(f'CREATE TABLE IF NOT  EXISTS {table}')
     
     
 async def fetch(pool, table:str, clumn1: str, value1: str, clumn2: str=None,value2:str=None, clumn3:str=None, value3:str=None):

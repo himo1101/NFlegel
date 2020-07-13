@@ -1,6 +1,7 @@
 from discord.ext import commands
 from flegelapi.pg import default, server
 from distutils.util import strtobool
+import discord
 
 member_table= """ member_(
     id serial PRIMARY KEY,

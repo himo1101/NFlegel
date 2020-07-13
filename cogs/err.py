@@ -1,5 +1,5 @@
 from discord.ext import commands
-from flegelapi.key import get_id()
+from flegelapi.key import get_id
 import traceback
 
 ID= get_id()

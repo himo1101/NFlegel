@@ -21,7 +21,7 @@ class Channel(commands.Cog):
         
         
     @channel.command()
-     async def voice(self, ctx, voice:str, category:discord.CategoryChannel=None):
+    async def voice(self, ctx, voice:str, category:discord.CategoryChannel=None):
          new_voice= await Channel_(name=voice, category=category).voice(ctx)
             
         await ctx.send(new_voice.mention)

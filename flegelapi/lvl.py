@@ -26,7 +26,7 @@ class User_lvl:
         
         
         
-    async def up_lvl(self mes):
+    async def up_lvl(self, mes):
         user= await self.check_save_date(mes)
         
         cur_xp=user['xp']

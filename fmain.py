@@ -54,7 +54,7 @@ class Flegel_Main(commands.Bot):
         print('起動が完了しました!')
         
         for table in self.pg_table:
-             await pg.default.create(self.pool, table)
+             await default.create(self.pool, table)
          
      async def create_db_pool(self):
         self.pool = await default.connect(info.user, info.pw, info.db)

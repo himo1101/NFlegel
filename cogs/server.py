@@ -5,7 +5,7 @@ notice= '''
     notice(
         id serial PRIMARY KEY,
         server_id character varying NOT NULL,
-        channel_id character varying NOT NULL
+        channel_id character varying 
         )'''
 class Server(commands.Cog):
     def __init__(self, bot):

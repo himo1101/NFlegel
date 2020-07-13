@@ -1,5 +1,5 @@
 from discord.ext import commands as c
-from flegelapi import lvl
+from flegelapi import lvl, embed
 import discord
 class Mes(c.Cog):
     def __init__(self, ctx):
@@ -19,32 +19,46 @@ class Mes(c.Cog):
     @c.command(aliases =["um"])
     async def user_message_count(self, ctx):
         counter = 0
-        mes = await ctx.send('このチャンネルにユーザーが送信したメッセージの数を数えています。')
+        e= discord.Embed(
+            description='計算中・・・')
+        mes = await ctx.send(embed=e)
         async for msg in ctx.channel.history(limit=None):
             if msg.author == ctx.author:
                 counter += 1
-        await mes.edit(f'貴方は過去にこのチャンネルに{counter}数のメッセージを送りました。')
+        e=discord.Embed(
+            title='あなたが過去にこのチャンネルにメッセージを送った数',
+            description=counter)
+        await mes.edit(embed=e)
 
 
     @c.command(aliases =["cm"])
     async def channel_message_count(self, ctx):
         counter = 0
-        mes = await ctx.send('このチャンネルのメッセージ数を数えています。')
+        e= discord.Embed(
+            description='計算中・・・')
+        mes = await ctx.send(embed=e)
         async for msg in ctx.channel.history(limit=None):
             counter += 1
         
-        await mes.edit(f'このチャンネルには{counter}数のメッセージが送られています。')
-
+        e=discord.Embed(
+            title='このチャンネルにメンバーがメッセージを送った数',
+            description=counter)
+        await mes.edit(embed=e)
     
     @c.command(aliases =["sm"])
     async def server_message_count(self, ctx):
         counter = 0
-        mes = await ctx.send('このサーバーのメッセージ数を数えています。')
+        e= discord.Embed(
+            description='計算中・・・')
+        mes = await ctx.send(embed=e)
         for channel in ctx.guild.channels:
             async for msg in channel.history(limit=None):
                 counter += 1
         
-        await mes.edit(f'このサーバーには{counter}数のメッセージが送られています。')
+        e=discord.Embed(
+            title='このサーバーにメンバーがメッセージを送った数',
+            description=counter)
+        await mes.edit(embed=e)
         
         
     @c.command()
